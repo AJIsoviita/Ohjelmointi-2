@@ -32,7 +32,7 @@ int main()
                 " total amount of balls." << endl;
     }
 
-    if(n == 20 && p == 4)
+    else if (n == 20 && p == 4)
     {
         cout << "The probability of guessing all "
                 "4 balls correctly is 1/4845" << endl;
