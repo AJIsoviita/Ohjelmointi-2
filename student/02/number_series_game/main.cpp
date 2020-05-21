@@ -8,7 +8,7 @@ int main()
     int number = 0;
     cin >> number;
     int n = 1;
-    while (n != number)
+    while (n != (number+1))
     {
         if (n % 3 == 0)
         {
