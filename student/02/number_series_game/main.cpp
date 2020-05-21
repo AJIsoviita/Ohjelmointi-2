@@ -12,13 +12,25 @@ int main()
     {
         if (n % 3 == 0)
         {
-            cout << "zip" << endl;
-
+            if (n % 7 == 0)
+                cout << "zip boing" << endl;
+            else
+                cout << "zip" << endl;
         }
+
+        else if (n % 7 == 0)
+        {
+            if (n % 3 == 0)
+                cout << "zip boing" << endl;
+            else
+                cout << "boing" << endl;
+        }
+
         else
         {
             cout << n << endl;
         }
+
         ++n;
 
     }
