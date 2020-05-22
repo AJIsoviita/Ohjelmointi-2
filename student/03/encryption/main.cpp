@@ -37,18 +37,18 @@ int check(string avain)
   }
 }
 
-int encrypt(string teksti, string avain)
+string encrypt(string teksti, string avain)
 {
-    int i = 1;
-    size_t pos;
-    while (i <= 26)
-    {
-    while ((pos = teksti.find(teksti[i])) != string::npos)
-    {
-        teksti.replace(pos, 1, avain[i]);
-    }
-    ++i;
-    }
+ string teksti2 = teksti;
+ int i = 0;
+ int x = 0;
+ while(i, i < teksti.size())
+ {
+ if (teksti[i] == teksti2[i])
+     replace(teksti.begin(), teksti.end(), teksti[i], avain[i]);
+ i++;
+ }
+ return teksti;
 }
 
 int main()
@@ -56,9 +56,9 @@ int main()
   cout << "Enter the encryption key: ";
   string salausavain;
   cin >> salausavain;
-  check(salausavain);
+  if (check(salausavain) == false) return EXIT_FAILURE;
   cout << "Enter the text to be encrypted: ";
   string text;
   cin >> text;
-  cout << encrypt(text, salausavain);
+  cout << "Encrypted text: " << encrypt(text, salausavain) << endl;
 }
