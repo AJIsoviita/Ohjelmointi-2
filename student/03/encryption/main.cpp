@@ -5,7 +5,7 @@
 #include <cctype>
 using namespace std;
 
-int check(string avain)
+int check_key(string avain)
 {
 
   int len;
@@ -37,16 +37,47 @@ int check(string avain)
   }
 }
 
+int check_word(string avain)
+{
+
+  int len;
+  string isoavain = avain;
+  string alphabet = "abcdefghijklmnopqrstuvwxyz";
+  len = avain.length();
+
+  for_each(isoavain.begin(), isoavain.end(), [](char & c){
+           c = tolower(c);
+  });
+  if (isoavain != avain)
+  {
+      cout<<"Error! The encryption key must contain only lower case characters."<<endl;
+      return EXIT_FAILURE;
+  }
+  for (string::iterator it=avain.begin(); it!=avain.end(); ++it)
+  {
+   if ((*it) < 0x61 || (*it) > 0x7A)
+   {
+       cout<<"Error! The encryption key must contain only lower case characters."<<endl;
+       return EXIT_FAILURE;
+   }
+  }
+}
+
+
 string encrypt(string teksti, string avain)
 {
- string teksti2 = teksti;
+ string alphabet = "abcdefghijklmnopqrstuvwxyz";
  int i = 0;
  int x = 0;
- while(i, i < teksti.size())
+ for (char& c : teksti)
  {
- if (teksti[i] == teksti2[i])
-     replace(teksti.begin(), teksti.end(), teksti[i], avain[i]);
+ while (i < 26)
+ {
+ if (c == alphabet[i])
+     c = avain[i];
  i++;
+ }
+ i=0;
  }
  return teksti;
 }
@@ -56,9 +87,10 @@ int main()
   cout << "Enter the encryption key: ";
   string salausavain;
   cin >> salausavain;
-  if (check(salausavain) == false) return EXIT_FAILURE;
+  if (check_key(salausavain) == EXIT_FAILURE) return EXIT_FAILURE;
   cout << "Enter the text to be encrypted: ";
   string text;
   cin >> text;
+  if (check_word(text) == EXIT_FAILURE) return EXIT_FAILURE;
   cout << "Encrypted text: " << encrypt(text, salausavain) << endl;
 }
