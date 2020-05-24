@@ -26,7 +26,7 @@ int check_key(string avain)
       cout<<"Error! The encryption key must contain only lower case characters."<<endl;
       return EXIT_FAILURE;
   }
-  for (int i = 0; i < avain.size(); i++)
+  for (size_t i = 0; i < avain.length(); i++)
   {
    size_t n = count(avain.begin(), avain.end(), avain[i]);
    if (n > 1)
@@ -35,15 +35,13 @@ int check_key(string avain)
        return EXIT_FAILURE;
    }
   }
+  return 0;
 }
 
 int check_word(string avain)
 {
-
-  int len;
   string isoavain = avain;
   string alphabet = "abcdefghijklmnopqrstuvwxyz";
-  len = avain.length();
 
   for_each(isoavain.begin(), isoavain.end(), [](char & c){
            c = tolower(c);
@@ -61,6 +59,7 @@ int check_word(string avain)
        return EXIT_FAILURE;
    }
   }
+  return 0;
 }
 
 
@@ -68,7 +67,6 @@ string encrypt(string teksti, string avain)
 {
  string alphabet = "abcdefghijklmnopqrstuvwxyz";
  int i = 0;
- int x = 0;
  for (char& c : teksti)
  {
  while (i < 26)
