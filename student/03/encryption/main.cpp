@@ -63,21 +63,20 @@ int check_word(string avain)
 }
 
 
-string encrypt(string teksti, string avain)
+string encrypt(string to_encrypt, string avain)
 {
- string alphabet = "abcdefghijklmnopqrstuvwxyz";
- int i = 0;
- for (char& c : teksti)
- {
- while (i < 26)
- {
- if (c == alphabet[i])
-     c = avain[i];
- i++;
- }
- i=0;
- }
- return teksti;
+       string original = "abcdefghijklmnopqrstuvwxyz";
+       int lenght = to_encrypt.length();
+       for (int i=0; i < lenght; i++)
+       {
+           char letter = to_encrypt.at(i);
+           size_t position = original.find(letter);
+           char to_change = avain.at(position);
+           to_encrypt.at(i) = to_change;
+       }
+
+
+ return to_encrypt;
 }
 
 int main()
