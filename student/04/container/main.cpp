@@ -6,7 +6,7 @@ using namespace std;
 void read_integers(std::vector< int >& ints, int count)
 {
     int new_integer = 0;
-    for(int i = 0; i < count; i++)
+    for(int i = 0; i < count; ++i)
     {
         std::cin >> new_integer;
         ints.push_back(new_integer);
@@ -15,90 +15,74 @@ void read_integers(std::vector< int >& ints, int count)
 
 bool same_values(vector<int> integers)
 {
-    for (int i : integers)
-    {
-    if (integers.at(i) == integers.at(0))
-        return true;
-    else
-        return false;
-    }
-    return 0;
+    int last_value = 0;
+       int size = integers.size();
+       for(int i = 0; i < size; ++i){
+           if( i > 0 && integers.at(i) != last_value){
+               return false;
+           }
+           last_value = integers.at(i);
+       }
+       return true;
 }
 
 bool is_ordered_non_strict_ascending(vector<int> integers)
 {
-    for (int i : integers)
+    int size = integers.size();
+    int last_value = 0;
+    for (int i = 0; i < size; ++i )
     {
-        if (integers.at(i) <= integers.at(i+1))
+        if( i > 0 && integers.at(i) < last_value){
+                    return false;
+                    }
+                last_value = integers.at(i);
+            }
             return true;
-        else
-            return false;
-    }
-    return 0;
 }
 
 bool is_arithmetic_series(vector<int> integers)
 {
-    int i = 0;
     int size = integers.size();
-    int difference = integers.at(i + 1) - integers.at(i);
-    int difference2 = 0;
-    int x = 0;
-    int a = 1;
-    for (int i : integers)
-    {
-        a++;
-        if ( a < size)
+        int last_value = 0;
+        int current_value;
+        int summa = 0;
+        for(int i = 0; i < size; ++i)
         {
-        difference2 = integers.at(i+1) - integers.at(i);
-        if ( difference == difference2)
-        {
-            x++;
+            current_value = integers.at(i);
+            if (i == 1){
+                summa = integers.at(i) - last_value;
+            }
+            if( i > 1 && (last_value + summa) != current_value ){
+                return false;
+
+            }
+
+            last_value = integers.at(i);
         }
-        else
-            return false;
-        }
-    }
-    if (x == (size - 2))
         return true;
-    else
-        return false;
 }
 
 bool is_geometric_series(vector<int> integers)
 {
-    int amount = 0;
     int size = integers.size();
-    for (int i : integers)
-    {
-    if (i == 0)
-        amount++;
-    }
-    if (amount == size)
-        return false;
-    int i = 0;
-    int q = integers.at(i+ 1) / integers.at(i);
-    int q2 = 0;
-    int x = 0;
-    int a = 1;
-    for (int i : integers)
-    {
-        a++;
-        if (a < size)
-        {
-        q2 = integers.at(i + 1) / integers.at(i);
-        if ( q == q2)
-        {
-            x++;
-        }
-        else
-            return false;
-        }
-    }
-    if (x == (size - 2))
-        return true;
-    else
-        return false;
+       int last_value = 0;
+       int current_value;
+       float divide_and_conquer = 0;
+       for(int i = 0; i < size; ++i){
+           current_value = integers.at(i);
+           if (current_value == 0){
+               return false;
+           }
+           if( i == 1 ){
+               divide_and_conquer = integers.at(i) / last_value;
+           }
+           if ( i > 0 && (last_value * divide_and_conquer) != current_value){
+               return false;
+           }
+
+           last_value = integers.at(i);
+       }
+       return true;
 }
 
 int main()
