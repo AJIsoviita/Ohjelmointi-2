@@ -8,7 +8,6 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
 {
     default_random_engine rand_gen;
     int number = 0;
-    string line = "";
     string input;
 
     cout << "Enter a seed value or an empty line: ";
@@ -22,7 +21,8 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     cout << "" << endl;
     while (input == "")
     {
-    number = rand() % upper + lower;
+    uniform_int_distribution<int> distribution(lower, upper);
+    number = distribution(rand_gen);
     cout << "Your drawn random number is " << number << endl;
     cout << "Press enter to continue or q to quit:" << endl;
     getline(cin, input);
