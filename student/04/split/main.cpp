@@ -4,6 +4,7 @@
 #include <sstream>
 using namespace std;
 
+
 // TODO: Implement split function here
 // Do not change main function
 vector<string> split(string input, char separator, bool value = false)
@@ -12,7 +13,7 @@ vector<string> split(string input, char separator, bool value = false)
     vector<string> list;
     string letter;
     string part;
-    char n;
+    char n = 0;
     int size = input.length();
     if (value == false)
     {
