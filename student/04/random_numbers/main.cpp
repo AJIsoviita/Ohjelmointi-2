@@ -19,12 +19,12 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
         rand_gen.seed( time(NULL) );
     else
         rand_gen.seed( stoi(seed_value) );
-
+    cout << "" << endl;
     while (input == "")
     {
     number = rand() % upper + lower;
     cout << "Your drawn random number is " << number << endl;
-    cout << "Press enter to continue or q to quit" << endl;
+    cout << "Press enter to continue or q to quit:" << endl;
     getline(cin, input);
     if (input == "q")
         break;
