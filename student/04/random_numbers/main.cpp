@@ -11,7 +11,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     string line = "";
     string input;
 
-    cout << "Enter a seed value for random number generator or an empty line: ";
+    cout << "Enter a seed value or an empty line: ";
     string seed_value = "";
     getline(cin, seed_value);
 
