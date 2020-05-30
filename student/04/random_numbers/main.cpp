@@ -18,14 +18,13 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
         rand_gen.seed( time(NULL) );
     else
         rand_gen.seed( stoi(seed_value) );
-    cout << "" << endl;
     while (input == "")
     {
     uniform_int_distribution<int> distribution(lower, upper);
     number = distribution(rand_gen);
+    cout << "" << endl;
     cout << "Your drawn random number is " << number << endl;
     cout << "Press enter to continue or q to quit: ";
-    cout << "" << endl;
     getline(cin, input);
     if (input == "q")
         break;
