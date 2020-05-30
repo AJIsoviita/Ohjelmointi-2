@@ -24,12 +24,12 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     uniform_int_distribution<int> distribution(lower, upper);
     number = distribution(rand_gen);
     cout << "Your drawn random number is " << number << endl;
-    cout << "Press enter to continue or q to quit:" << endl;
+    cout << "Press enter to continue or q to quit: ";
+    cout << "" << endl;
     getline(cin, input);
     if (input == "q")
         break;
-    else if (input == "")
-        continue;
+
     }
 
 
