@@ -14,11 +14,9 @@ vector<string> split(string input, char separator, bool value = false)
     string letter;
     string part;
     char n = 0;
-    int size = input.length();
     if (value == false)
     {
-        if (input.at(0) == separator)
-            list.push_back(" ");
+
         for (char & c : input)
         {
             if (c != separator)
@@ -33,8 +31,6 @@ vector<string> split(string input, char separator, bool value = false)
             n = c;
         }
         list.push_back(part);
-        if (input.at(size - 1) == separator)
-            list.push_back(" ");
     }
     else
     {
