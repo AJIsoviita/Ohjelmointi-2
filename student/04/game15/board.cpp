@@ -18,6 +18,8 @@
 #include <random>
 #include <algorithm>
 #include <string>
+#include <vector>
+#include <time.h>
 
 using namespace std;
 
@@ -25,6 +27,9 @@ const int EMPTY = 16;
 const unsigned int PRINT_WIDTH = 5;
 
 Board::Board(vector< unsigned int>& numbers, bool suffle, int seed)
+/* Turns one dimensional vector into 2 dimensional vector and
+ * shuffles the vector if the second parameter is true
+ */
 {
     if (suffle)
     {
@@ -34,6 +39,9 @@ Board::Board(vector< unsigned int>& numbers, bool suffle, int seed)
 }
 
 vector<vector<unsigned int>> Board::D1_to_D2(vector <unsigned int> numbers)const
+/* Turns one dimensional vector into vector with two dimensions
+ * return vector with 4 vectors in it
+ */
 {
 vector<vector<unsigned int> > D2;
 vector<unsigned int> tempvector;
@@ -52,7 +60,104 @@ for (auto number : numbers)
 return D2;
 }
 
+void Board::move(string direction, int index)
+/* Direction = where number moves, index = the value of the number being moved.
+ * Method locates wanted number and calls another method to move it
+ */
+{
+    unsigned int y = 0;
+    unsigned int x = 0;
+    bool spot = false;
+    for (auto item: grid_)
+    {
+        for(unsigned int number : item)
+        {
+            if (index == (int) number)
+            {
+                spot = true;
+                break;
+            }
+            x++;
+        }
+        if (spot)
+            break;
+
+    x = 0;
+    y++;
+    }
+    if (Board::is_move_allowed(y, x, direction))
+    {
+        Board::swap(y, x, direction, index);
+    }
+    else
+        cout << "Impossible direction: " << direction << endl;
+}
+
+void Board::swap(unsigned int y, unsigned int x, string direction, int index)
+/* Method takes y and x coordinates, wanted direction and numeric value of number as
+ * parameters. Swaps the location of two numbers.
+ */
+{
+    if ( direction == "a" )
+    {
+           grid_[y][x-1] = index;
+           grid_[y][x] = EMPTY;
+    }
+
+    if ( direction == "d" )
+    {
+           grid_[y][x+1] = index;
+           grid_[y][x] = EMPTY;
+    }
+
+   if ( direction == "w" )
+    {
+           grid_[y-1][x] = index;
+           grid_[y][x] = EMPTY;
+    }
+
+    if ( direction == "s" )
+    {
+           grid_[y+1][x] = index;
+           grid_[y][x] = EMPTY;
+    }
+}
+
+
+bool Board::is_move_allowed(unsigned int y, unsigned int x, string direction)
+// Checks if the move is allowed. Return true if move is allowed, false if not
+{
+    if (direction == "a")
+    {
+        if (x == 0) return false;
+        return (grid_[y][x-1] == EMPTY);
+    }
+    else if (direction == "d")
+    {
+        if ( x == 4 ) return false;
+        return (grid_[y][x+1] == EMPTY);
+
+    }
+    else if (direction == "w")
+    {
+        if (y == 0) return false;
+        return (grid_[y-1][x] == EMPTY);
+
+    }
+    else
+    {
+        if (y == 4) return false;
+        return (grid_[y+1][x] == EMPTY);
+    }
+}
+
+bool Board::solvable()
+{
+ return true;
+}
+
 void Board::print()
+// Prints the gameboard
 {
     for(unsigned int x = 0; x < SIZE; ++x)
     {
@@ -75,6 +180,7 @@ void Board::print()
 }
 
 void Board::my_shuffle(vector<unsigned int> &numbers, int seed)
+// Randomizes the number order in vector
 {
     default_random_engine randomEng(seed);
     uniform_int_distribution<int> distr(0, numbers.size() - 1);

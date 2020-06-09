@@ -39,13 +39,13 @@ public:
     void print();
 
     // Checks if the game is solveable
-    bool solveable();
+    bool solvable();
 
     // Checks if the game has been won
     bool won();
 
     // Checks if the move is allowed and performs it if it is allowed
-    void move();
+    void move(string direction, int index);
 
 private:
     // Shuffles the numbers vector by using seed as a seed value
@@ -57,9 +57,11 @@ private:
     // Turns 1 dimensional vector into 2 dimensional
     vector< vector<unsigned int> > D1_to_D2(vector <unsigned int> numbers) const;
 
-    bool is_move_allowed();
+    // Part of method move. Checks if the move is possible
+    bool is_move_allowed(unsigned int y, unsigned int x, string direction);
 
-    void swap();
+    // Performs the move
+    void swap(unsigned int y, unsigned int x, string direction, int index);
 };
 
 #endif // BOARD_HH
