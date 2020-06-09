@@ -60,19 +60,21 @@ bool choseninit(vector<unsigned int>& numbers)
         numbers.push_back(item);
     }
     cin.ignore();
-    vector <int> line {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-    int missing_number = 0;
+    vector <unsigned int> checknumbers;
+    checknumbers = numbers;
+    unsigned int valuecheck = 1;
 
-    for (int number : line)
-    {
-     if(count(numbers.begin(), numbers.end(), number));
-     else missing_number = number;
-    }
 
-    if (missing_number != 0)
+    // Checks that input numbers include 1-16
+    sort(checknumbers.begin(), checknumbers.end());
+    for (unsigned int i : checknumbers)
     {
-        cout << "Number " << missing_number << " is missing" << endl;
-        return false;
+        if (i != valuecheck)
+        {
+            cout << "Number " << valuecheck << " is missing" << endl;
+            return false;
+        }
+        valuecheck++;
     }
     return true;
 }

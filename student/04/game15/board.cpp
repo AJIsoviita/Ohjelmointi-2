@@ -170,8 +170,8 @@ bool Board::solvable()
          x++;
      }
      if (spot) break;
-    x=0;
-    y++;
+     x=0;
+     y++;
  }
  while (y < 3)
  {
@@ -184,7 +184,7 @@ bool Board::solvable()
  {
      for ( unsigned int D2 = 0; D2 < 4; D2++)
      {
-         for ( unsigned int D3 = 0; D3 < 4; D3++)
+         for ( unsigned int D3 = 0 + D1; D3 < 4; D3++)
          {
              for ( unsigned int D4 = 0; D4 < 4; D4++)
              {
@@ -195,7 +195,7 @@ bool Board::solvable()
                  if (grid_.at(D1).at(D2) > grid_.at(D3).at(D4) and
                      grid_.at(D1).at(D2) != 16 and
                      grid_.at(D3).at(D4))
-                     inversions++;
+                     inversions += 1;
              }
          }
      }
