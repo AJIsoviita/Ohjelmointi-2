@@ -62,7 +62,7 @@ bool choseninit(vector<unsigned int>& numbers)
         cin >> item;
         numbers.push_back(item);
     }
-
+    cin.ignore();
     vector <int> line {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
     int missing_number = 0;
 
@@ -90,12 +90,18 @@ Board start_board(vector<unsigned int> numbers)
 void control(Board game)
 // Takes user input and acts upon it
 {
-    if(game.solvable())
+    if( game.solvable() )
     {
+        cout << "Game is solvable: Go ahead!" << endl;
         while (true)
         {
-            cout << "Game is solvable: Go ahead!" << endl;
             game.print();
+            if ( game.is_won() )
+            {
+                cout << "You won!" << endl;
+                break;
+            }
+
             string input;
             string index;
             cout << "Dir (command, number): ";
@@ -108,7 +114,7 @@ void control(Board game)
                 direction == "s")
             {
                 index = input.substr(2);
-                if(stoi(index) < 16 and 0 < stoi(index))
+                if(stoi(index) <= 15 and 1 <= stoi(index))
                     game.move(direction, stoi(index));
                 else
                     cout << "Invalid number: " << index << endl;
@@ -119,6 +125,12 @@ void control(Board game)
 
             else
                 cout << "Unknown command: " << direction << endl;
+
+            if (game.is_won())
+            {
+                cout << "You won!" << endl;
+                break;
+            }
         }
     }
     else
@@ -149,6 +161,7 @@ int main()
         containsall = choseninit(numbers);
         if (!containsall)
             return EXIT_FAILURE;
+
         else
         {
             Board game = start_board(numbers);

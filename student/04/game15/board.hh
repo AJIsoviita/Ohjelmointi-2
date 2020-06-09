@@ -42,7 +42,7 @@ public:
     bool solvable();
 
     // Checks if the game has been won
-    bool won();
+    bool is_won();
 
     // Checks if the move is allowed and performs it if it is allowed
     void move(string direction, int index);

@@ -123,7 +123,6 @@ void Board::swap(unsigned int y, unsigned int x, string direction, int index)
     }
 }
 
-
 bool Board::is_move_allowed(unsigned int y, unsigned int x, string direction)
 // Checks if the move is allowed. Return true if move is allowed, false if not
 {
@@ -210,6 +209,22 @@ bool Board::solvable()
      return true;
  }
  else return false;
+}
+
+bool Board::is_won()
+// Checks if the numbers are in correct order to win the game
+{
+    unsigned int i = 1;
+    for(auto item : grid_)
+    {
+        for(unsigned int number : item)
+        {
+            if (i != number)
+                return false;
+        i++;
+        }
+    }
+    return true;
 }
 
 void Board::print()
