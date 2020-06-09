@@ -14,9 +14,6 @@
  * Student number: 283435
  * UserID: isoviita
  * E-Mail: antti-jussi.isoviita@tuni.fi
- *
- * Notes about the program and it's implementation:
- *
  * */
 
 #include "board.hh"
@@ -128,6 +125,7 @@ void control(Board game)
 
             if (game.is_won())
             {
+                game.print();
                 cout << "You won!" << endl;
                 break;
             }
@@ -139,7 +137,7 @@ void control(Board game)
 }
 
 int main()
-/* Prompts user to choose game type
+/* Prompts user to choose board type
  * returns EXIT_FAILURE if user gives wrong value in choseinit
  * returns EXIT_SUCCESS if game ends
  */

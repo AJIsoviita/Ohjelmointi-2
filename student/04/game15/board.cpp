@@ -7,10 +7,7 @@
  * Student number: 283435
  * UserID: isoviita
  * E-Mail: antti-jussi.isoviita@tuni.fi
- *
- * Notes:
- *
- * */
+ */
 
 #include "board.hh"
 #include <iostream>
