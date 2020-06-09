@@ -90,33 +90,40 @@ Board start_board(vector<unsigned int> numbers)
 void control(Board game)
 // Takes user input and acts upon it
 {
- while (game.solvable())
- {
- game.print();
- string input;
- string index;
- cout << "Dir (command, number): ";
- getline(cin, input);
- string direction = input.substr(0, input.find(" "));
+    if(game.solvable())
+    {
+        while (true)
+        {
+            cout << "Game is solvable: Go ahead!" << endl;
+            game.print();
+            string input;
+            string index;
+            cout << "Dir (command, number): ";
+            getline(cin, input);
+            string direction = input.substr(0, input.find(" "));
 
- if (direction == "a" or
-     direction == "d" or
-     direction == "w" or
-     direction == "s")
- {
-     index = input.substr(2);
-     if(stoi(index) < 16 and 0 < stoi(index))
-         game.move(direction, stoi(index));
-     else
-         cout << "Invalid number: " << index << endl;
- }
+            if (direction == "a" or
+                direction == "d" or
+                direction == "w" or
+                direction == "s")
+            {
+                index = input.substr(2);
+                if(stoi(index) < 16 and 0 < stoi(index))
+                    game.move(direction, stoi(index));
+                else
+                    cout << "Invalid number: " << index << endl;
+            }
 
- else if (direction == "q")
-     break;
+            else if (direction == "q")
+                break;
 
- else
-     cout << "Unknown command: " << direction << endl;
- }
+            else
+                cout << "Unknown command: " << direction << endl;
+        }
+    }
+    else
+        cout << "Game is not solvable. What a pity." << endl;
+
 }
 
 int main()
@@ -146,7 +153,6 @@ int main()
         {
             Board game = start_board(numbers);
             control(game);
-
         }
 
     }

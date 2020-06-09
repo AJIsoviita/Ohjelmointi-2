@@ -152,8 +152,64 @@ bool Board::is_move_allowed(unsigned int y, unsigned int x, string direction)
 }
 
 bool Board::solvable()
+/* Checks if board is solvable or not
+ * Returns true if board is solvable, false if not
+ */
 {
- return true;
+ unsigned int y = 0;
+ unsigned int x = 0;
+ int inversions = 0;
+ vector < vector<unsigned int> > original = grid_;
+ bool spot = false;
+ // To get empty spot to the bottom row
+ for (auto item : grid_)
+ {
+     for(unsigned int number : item)
+     {
+         if (EMPTY == (int) number)
+         {
+             spot = true;
+             break;
+         }
+         x++;
+     }
+     if (spot) break;
+    x=0;
+    y++;
+ }
+ while (y < 3)
+ {
+     Board::swap(y+1, x, "w", grid_[y+1][x]);
+     y++;
+ }
+
+ // To check if the board is solvable
+ for ( unsigned int D1 = 0; D1 < 4; D1++)
+ {
+     for ( unsigned int D2 = 0; D2 < 4; D2++)
+     {
+         for ( unsigned int D3 = 0; D3 < 4; D3++)
+         {
+             for ( unsigned int D4 = 0; D4 < 4; D4++)
+             {
+                 if (D3 == D1 and D2 > D4)
+                 {
+                     D4 = D2;
+                 }
+                 if (grid_.at(D1).at(D2) > grid_.at(D3).at(D4) and
+                     grid_.at(D1).at(D2) != 16 and
+                     grid_.at(D3).at(D4))
+                     inversions++;
+             }
+         }
+     }
+ }
+ if (inversions % 2 == 0)
+ {
+     grid_ = original;
+     return true;
+ }
+ else return false;
 }
 
 void Board::print()
