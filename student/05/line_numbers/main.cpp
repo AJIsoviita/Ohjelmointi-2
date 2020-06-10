@@ -17,7 +17,11 @@ int main()
     ofstream output_file(output);
 
     if (not input_file)
+    {
         cout << "Error! The file "<< input << " cannot be opened." << endl;
+        exit(1);
+    }
+
     else
     {
         string row = "";
