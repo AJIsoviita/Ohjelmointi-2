@@ -14,7 +14,6 @@ int main()
     getline(cin, output);
 
     ifstream input_file(input);
-    ofstream output_file(output);
 
     if (not input_file)
     {
@@ -24,6 +23,7 @@ int main()
 
     else
     {
+        ofstream output_file(output);
         string row = "";
         int number = 1;
         while( getline(input_file, row))
