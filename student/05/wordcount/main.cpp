@@ -21,7 +21,7 @@ int main()
 
     if (!finput)
     {
-        cout << "Error! The file" << input << "cannot be opened.";
+        cout << "Error! The file " << input << "cannot be opened.";
         return EXIT_FAILURE;
     }
     else
