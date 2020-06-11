@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #ifndef RECURSIVE_FUNC
 #define RECURSIVE_FUNC
 #endif
@@ -14,18 +15,18 @@ bool palindrome_recursive(string s)
 
 
   // Add your implementation here
-  int len = (s.length() - 1);
 
-  if (s.at(0) == s.at(len))
+  if (s.at(0) != s.at(s.length()-1))
+          return false;
+  else
   {
-      s.erase(len);
-      s.erase(0);
-      if(s.length() > 1)
-          palindrome_recursive(s);
-      else
-          return true;
+      if(s.length() > 3)
+      {
+          s = s.substr(1, s.length() - 2);
+          if(!palindrome_recursive(s)) return false;
+      }
+      return true;
   }
-  return false;
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
