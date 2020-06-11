@@ -14,18 +14,18 @@ bool palindrome_recursive(string s)
 
 
   // Add your implementation here
-  string word = s;
-  string antiword;
-  int len = word.length() - 1;
-  while (len >= 0)
+  int len = (s.length() - 1);
+
+  if (s.at(0) == s.at(len))
   {
-      antiword += word.at(len);
-      len--;
+      s.erase(len);
+      s.erase(0);
+      if(s.length() > 1)
+          palindrome_recursive(s);
+      else
+          return true;
   }
-  if(antiword == word)
-      return true;
-  else
-      return false;
+  return false;
 }
 
 // Do not modify rest of the code, or the automated testing won't work.
