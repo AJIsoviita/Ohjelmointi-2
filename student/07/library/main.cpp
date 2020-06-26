@@ -167,9 +167,18 @@ void reservable(Map library, string book)
             if (list[0].second < v.second)
                 list.pop_back();
         }
-        cout<< list[0].second <<" reservations" << endl;
-        for (auto i : list)
-            cout << "--- " << i.first << endl;
+        if(list[0].second == 0)
+        {
+            cout<< "on the shelf" << endl;
+            for (auto i : list)
+                cout << "--- " << i.first << endl;
+        }
+        else
+        {
+            cout<< list[0].second <<" reservations" << endl;
+            for (auto i : list)
+                cout << "--- " << i.first << endl;
+        }
     }
 }
 
