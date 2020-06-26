@@ -71,7 +71,7 @@ void print(Map library)
         cout << i.first << endl;
 }
 
-/*int menu(Map library)
+int menu(Map library)
 {
     while(true)
     {
@@ -85,23 +85,26 @@ void print(Map library)
             print(library);
 
         else if(command == "material")
+        {
             if(parts.size() != 2)
                 continue;
             else
                 cout << "Error: error in command "<< command << endl;;
-
+        }
         else if(command == "books")
+        {
             if(parts.size() != 3)
                 continue;
             else
                 cout << "Error: error in command "<< command << endl;
-
+        }
         else if(command == "reservable")
+        {
             if(parts.size() != 2)
                 continue;
             else
                 cout << "Error: error in command "<< command << endl;
-
+        }
         else if(command == "loanable")
             continue;
 
@@ -112,7 +115,7 @@ void print(Map library)
     }
     return 0;
 }
-*/
+
 
 int main()
 {
@@ -136,7 +139,7 @@ int main()
             return EXIT_FAILURE;
     }
 
-    // menu(library);
+    menu(library);
 
 
     return EXIT_SUCCESS;
