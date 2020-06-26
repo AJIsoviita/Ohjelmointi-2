@@ -1,78 +1,122 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <unordered_map>
+#include <map>
 #include <vector>
 #include <stdexcept>
+#include <sstream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
 struct Book{string title; string author; int reservations;};
+using Map = map <string, vector<Book> >;
 
-bool fieldcheck(ifstream& file)
-{
-    string row = "";
-    string delimiter = ";";
-
-    while(getline(file, row))
-    {
-        int count = 0;
-        while(row.find(delimiter) != string::npos)
-        {
-            string new_part = row.substr(0, row.find(delimiter));
-            row = row.substr(row.find(delimiter)+1, row.size());
-            if(not (new_part.empty() or new_part == ""))
-                count++;
-        }
-
-        if (not(row.empty() or row == ""))
-        {
-            if(row == "on-the-shelf")
-                count++;
-
-            else
-            {
-                try
-                {
-                    stoi(row);
-                    count++;
-                }
-
-                catch(const invalid_argument&)
-                {
-                    return false;
-                }
-            }
-        }
-        if (count != 4)
-            return false;
-    }
-    return true;
-}
-
-vector<string> split(string& row)
+vector<string> split(const string& s, const char delimiter, bool ignore_empty = false)
 {
     vector<string> result;
-    string delimiter = ";";
-        while(row.find(delimiter) != string::npos)
+    string tmp = s;
+
+    while(tmp.find(delimiter) != string::npos)
+    {
+        string new_part = tmp.substr(0, tmp.find(delimiter));
+        tmp = tmp.substr(tmp.find(delimiter)+1, tmp.size());
+        if(not (ignore_empty and new_part.empty()))
         {
-            string new_part = row.substr(0, row.find(delimiter));
-            row = row.substr(row.find(delimiter)+1, row.size());
-            if(not (new_part.empty()))
-            {
-                result.push_back(new_part);
-            }
+            result.push_back(new_part);
         }
-        if(not (row.empty()))
-        {
-            result.push_back(row);
-        }
-        return result;
     }
+    if(not (ignore_empty and tmp.empty()))
+    {
+        result.push_back(tmp);
+    }
+    return result;
+}
+
+map<string, vector<Book> > readfile(ifstream& file)
+{
+    string row;
+    Map library;
+    Map failure;
+
+    while (getline(file, row))
+    {
+        vector<string> splitrow = split(row, ';', true);
+        int amount;
+
+        if(splitrow.size() == 4)
+        {
+            istringstream(splitrow[3]) >> amount;
+            Book info = {splitrow[2], splitrow[1], amount};
+
+            Map::iterator iter = library.find(splitrow[0]);
+            if (iter == library.end() )
+                library.insert({splitrow[0], {info}});
+            else
+                library.at(splitrow[0]).push_back(info);
+        }
+        else
+        {
+            cout <<"Error: empty field" << endl;
+            return failure;
+        }
+    }
+    return library;
+}
+
+void print(Map library)
+{
+    for (auto i : library)
+        cout << i.first << endl;
+}
+
+/*int menu(Map library)
+{
+    while(true)
+    {
+        string prompt;
+        cout << "> ";
+        getline(cin, prompt);
+        vector<string> parts = split(prompt, ';', true);
+        string command = parts.at(0);
+
+        if (command == "libraries")
+            print(library);
+
+        else if(command == "material")
+            if(parts.size() != 2)
+                continue;
+            else
+                cout << "Error: error in command "<< command << endl;;
+
+        else if(command == "books")
+            if(parts.size() != 3)
+                continue;
+            else
+                cout << "Error: error in command "<< command << endl;
+
+        else if(command == "reservable")
+            if(parts.size() != 2)
+                continue;
+            else
+                cout << "Error: error in command "<< command << endl;
+
+        else if(command == "loanable")
+            continue;
+
+        else if(command == "quit")
+            return EXIT_SUCCESS;
+        else
+            cout << "Error: Unknown command: " << command << endl;
+    }
+    return 0;
+}
+*/
 
 int main()
 {
-    unordered_map <string, vector<Book>> library;
+    map <string, vector<Book>> library;
 
     cout << "Input file: ";
     string inputf = "";
@@ -84,51 +128,16 @@ int main()
         cout << "Error: the input file cannot be opened" << endl;
         return EXIT_FAILURE;
     }
-    else if(!fieldcheck(input))
+    else
     {
-        cout << "Error: empty field " << endl;
-        return EXIT_FAILURE;
+        library = readfile(input);
+
+        if(library.empty())
+            return EXIT_FAILURE;
     }
-    while(true)
-    {
-        string prompt;
-        cout << "> ";
-        getline(cin, prompt);
-        vector<string> parts = split(prompt);
-        string command = parts.at(0);
 
-        if (command == "libraries")
-            continue;
-
-        else if(command == "material")
-            if(parts.size != 2)
-                continue;
-            else
-                cout << "Error: error in command "<< command;
-
-        else if(command == "books")
-            if(parts.size != 3)
-                continue;
-            else
-                cout << "Error: error in command "<< command;
-
-        else if(command == "reservable")
-            if(parts.size != 2)
-                continue;
-            else
-                cout << "Error: error in command "<< command;
-
-        else if(command == "loanable")
-            continue;
-
-        else if(command == "quit")
-            return EXIT_SUCCESS;
-        else
-            cout << "Error: Unknown command: " << command << endl;
-    }
-    return 0;
+    // menu(library);
 
 
-    // collector(library, input);
-    cout << "good" << endl;
+    return EXIT_SUCCESS;
 }
