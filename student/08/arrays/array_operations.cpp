@@ -5,9 +5,9 @@ using namespace std;
 int greatest_v1(int *itemptr, int size)
 {
     int greatest = 0;
-    while(*itemptr <= (size) )
+    while(*itemptr <= size )
     {
-        if(greatest < *itemptr)
+        if( *itemptr > greatest )
             greatest = *itemptr;
         ++itemptr;
     }
@@ -19,7 +19,7 @@ int greatest_v2(int *itemptr, int *endptr)
     int greatest = 0;
     while (itemptr < endptr)
     {
-        if(greatest < *itemptr)
+        if( *itemptr > greatest )
             greatest = *itemptr;
         ++itemptr;
     }
