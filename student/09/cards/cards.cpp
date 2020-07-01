@@ -14,6 +14,16 @@ Cards::~Cards()
     }
 }
 
+int Cards::recursive_print(Cards::Card_data *top, std::ostream &s, int running)
+{
+    if(top == nullptr)
+        return 0;
+    running--;
+    recursive_print(top->next,s, running);
+    s << running << ": " << top->data << "\n";
+    return 0;
+}
+
 void Cards::add(int id)
 {
     Card_data* new_item = new Card_data();
@@ -62,15 +72,18 @@ bool Cards::bottom_to_top()
         return false;
     else
     {
-        Card_data* first = top_;
+        Card_data* sec_last = nullptr;
         Card_data* last = top_;
         while(last->next != nullptr)
+        {
+            sec_last = last;
             last = last->next;
-        top_ = first->next;
-        first->next = nullptr;
-        last->next = first;
-        return true;
+        }
+        sec_last->next=nullptr;
+        last->next=top_;
+        top_ = last;
     }
+    return true;
 }
 
 bool Cards::top_to_bottom()
@@ -86,11 +99,23 @@ bool Cards::top_to_bottom()
         top_ = first->next;
         first->next = nullptr;
         last->next = first;
-        return true;
     }
+    return true;
 }
 
 void Cards::print_from_bottom_to_top(std::ostream &s)
 {
-    s << 1<< "\n";
+    if(top_ == nullptr)
+        return;
+    int count = 0;
+    Card_data* current = top_;
+    while(current != nullptr)
+    {
+        count++;
+        current = current ->next;
+    }
+    int running = count;
+    recursive_print(top_->next, s, running);
+    s << running << ": " << top_->data << "\n";
+
 }

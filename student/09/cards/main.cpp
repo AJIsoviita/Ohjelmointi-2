@@ -26,7 +26,6 @@ int main() {
     cout << endl << "bottom_to_top * 2" << endl;
     deck.bottom_to_top();
     deck.bottom_to_top();
-    deck.bottom_to_top();
 
     cout << endl << "print_from_top_to_bottom" << endl;
     deck.print_from_top_to_bottom(cout);
