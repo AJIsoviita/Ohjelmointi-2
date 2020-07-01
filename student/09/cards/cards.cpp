@@ -52,10 +52,8 @@ bool Cards::remove(int &id)
         }
         delete (second_last->next);
         second_last->next = nullptr;
-        return true;
     }
-
-
+    return true;
 }
 
 bool Cards::bottom_to_top()
@@ -94,5 +92,5 @@ bool Cards::top_to_bottom()
 
 void Cards::print_from_bottom_to_top(std::ostream &s)
 {
-
+    s << 1<< "\n";
 }
