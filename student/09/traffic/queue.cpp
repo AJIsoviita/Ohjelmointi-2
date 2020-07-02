@@ -106,7 +106,7 @@ void Queue::print()
 
         if(first_ == nullptr)
         {
-            cout << "RED: No Vehicles waiting in traffic lights" << endl;
+            cout << "RED: No vehicles waiting in traffic lights" << endl;
         }
         else
         {
