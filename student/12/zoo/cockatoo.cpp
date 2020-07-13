@@ -7,5 +7,5 @@ Cockatoo::Cockatoo()
 
 void Cockatoo::sing(ostream &output)
 {
-    output << "Kee-ow kee-ow" << endl;
+    output << "Kee-ow kee-ow!" << endl;
 }
