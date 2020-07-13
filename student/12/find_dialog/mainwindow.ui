@@ -40,7 +40,7 @@
      <string>Close</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="matchcheckBox">
+   <widget class="QCheckBox" name="matchCheckBox">
     <property name="geometry">
      <rect>
       <x>20</x>
