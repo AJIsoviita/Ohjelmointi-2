@@ -90,21 +90,15 @@
       <height>29</height>
      </rect>
     </property>
-    <property name="maximum">
-     <number>255</number>
-    </property>
    </widget>
    <widget class="QSpinBox" name="spinBoxGreen">
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>100</y>
+      <y>90</y>
       <width>49</width>
       <height>29</height>
      </rect>
-    </property>
-    <property name="maximum">
-     <number>255</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBoxBlue">
@@ -115,9 +109,6 @@
       <width>49</width>
       <height>29</height>
      </rect>
-    </property>
-    <property name="maximum">
-     <number>255</number>
     </property>
    </widget>
   </widget>
@@ -145,50 +136,50 @@
  <resources/>
  <connections>
   <connection>
-   <sender>horizontalSliderRed</sender>
+   <sender>spinBoxRed</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>spinBoxRed</receiver>
+   <receiver>horizontalSliderRed</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>139</y>
+     <x>250</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>270</x>
-     <y>143</y>
+     <x>174</x>
+     <y>125</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSliderGreen</sender>
+   <sender>spinBoxGreen</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>spinBoxGreen</receiver>
+   <receiver>horizontalSliderGreen</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>199</x>
-     <y>163</y>
+     <x>256</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
-     <x>288</x>
-     <y>183</y>
+     <x>206</x>
+     <y>154</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSliderBlue</sender>
+   <sender>spinBoxBlue</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>spinBoxBlue</receiver>
+   <receiver>horizontalSliderBlue</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>195</x>
-     <y>201</y>
+     <x>246</x>
+     <y>192</y>
     </hint>
     <hint type="destinationlabel">
-     <x>275</x>
-     <y>209</y>
+     <x>203</x>
+     <y>186</y>
     </hint>
    </hints>
   </connection>
