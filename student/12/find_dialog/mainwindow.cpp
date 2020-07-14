@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_matchcheckBox_clicked(bool checked)
+void MainWindow::on_matchCheckBox_clicked(bool checked)
 {
     if(checked)
         checked_ = true;
@@ -38,7 +38,7 @@ void MainWindow::on_keyLineEdit_textEdited(const QString &arg1)
     key_ = arg1;
 }
 
-void MainWindow::on_findpushButton_clicked()
+void MainWindow::on_findPushButton_clicked()
 {
     ui->textBrowser->clear();
     QFile input(filename_);
@@ -72,3 +72,5 @@ void MainWindow::on_findpushButton_clicked()
         }
     }
 }
+
+
