@@ -4,7 +4,7 @@
 #include <iostream>
 #include <QFile>
 #include <string>
-#include <algorithm>
+#include <QRegExp>
 
 using namespace std;
 
@@ -53,22 +53,30 @@ void MainWindow::on_findPushButton_clicked()
             while(!input.atEnd())
             {
                 QString line = input.readLine();
-                if(checked_ == false)
+                QStringList words = line.split(" ");
+                foreach(QString word, words)
                 {
-                    if(line.contains(key_, Qt::CaseInsensitive))
-                        ui->textBrowser->append("Word found");
+                    if(checked_ == false)
+                    {
+                        if(word.toLower() == key_.toLower())
+                        {
+                            ui->textBrowser->append("Word found");
+                            return;
+                        }
+                    }
                     else
-                        ui->textBrowser->append("Word not found");
-                }
-                else
-                {
-                    if(line.contains(key_, Qt::CaseSensitive))
-                        ui->textBrowser->append("Word found");
-                    else
-                        ui->textBrowser->append("Word not found");
+                    {
+                        if(word == key_)
+                        {
+                            ui->textBrowser->append("Word found");
+                            return;
+                        }
+                    }
                 }
 
+
             }
+            ui->textBrowser->append("Word not found");
         }
     }
 }
