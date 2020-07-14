@@ -17,13 +17,13 @@ public:
 
 private slots:
 
-    void on_fileLineEdit_textEdited(const QString &arg1);
-
-    void on_keyLineEdit_textEdited(const QString &arg1);
-
     void on_findPushButton_clicked();
 
     void on_matchCheckBox_clicked(bool checked);
+
+    void on_fileLineEdit_editingFinished();
+
+    void on_keyLineEdit_editingFinished();
 
 private:
     Ui::MainWindow *ui;

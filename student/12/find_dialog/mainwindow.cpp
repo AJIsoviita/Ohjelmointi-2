@@ -28,14 +28,14 @@ void MainWindow::on_matchCheckBox_clicked(bool checked)
         checked_ = false;
 }
 
-void MainWindow::on_fileLineEdit_textEdited(const QString &arg1)
+void MainWindow::on_fileLineEdit_editingFinished()
 {
-    filename_ = arg1;
+    filename_ = ui->fileLineEdit->text();
 }
 
-void MainWindow::on_keyLineEdit_textEdited(const QString &arg1)
+void MainWindow::on_keyLineEdit_editingFinished()
 {
-    key_ = arg1;
+    key_ = ui->keyLineEdit->text();
 }
 
 void MainWindow::on_findPushButton_clicked()
@@ -80,5 +80,4 @@ void MainWindow::on_findPushButton_clicked()
         }
     }
 }
-
 
