@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 #include <QDebug>
 
 using namespace std;
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene_->addLine(QLine(center_ + step_, 100, center_ + step_, 250), pole);
 
     // Adding discs to graphic scene
-    int disc_amount = 0; // Counting amount of discs
+    int amount_of_discs = 0; // Counting amount of discs
 
     QPen border (Qt::black);
     border.setWidth(1);
@@ -38,17 +39,22 @@ MainWindow::MainWindow(QWidget *parent) :
     int y = 250;
     int s = 100;
     int h = 20;
-    while(disc_amount < disc_amount_)
+    while(amount_of_discs < disc_amount_)
     {
         QBrush disc_color(Qt::yellow);
         QGraphicsRectItem* disc = scene_->addRect(QRect(x, y ,s ,h), border, disc_color);
-        discs_.append(disc);
-        disc_amount++;
+        pole1_.append(disc);
+        pole1_numbers_.push_back(amount_of_discs);
+        amount_of_discs++;
         x += 5;
         y -= 22;
         s -= 10;
     }
-    pole1_ = discs_;
+
+    win_numbers_ = pole1_numbers_;
+    min_moves = pow(2, disc_amount_) - 1;
+    ui->min_moves->display(min_moves);
+    ui->current_mov->display(current_moves);
 }
 
 MainWindow::~MainWindow()
@@ -73,6 +79,10 @@ void MainWindow::on_PBAB_clicked()
 
     pole2_.append(disc_);
     pole1_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
 }
 
 void MainWindow::on_PBAC_clicked()
@@ -91,6 +101,10 @@ void MainWindow::on_PBAC_clicked()
 
     pole3_.append(disc_);
     pole1_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
 }
 
 void MainWindow::on_PBBA_clicked()
@@ -107,6 +121,10 @@ void MainWindow::on_PBBA_clicked()
 
     pole1_.append(disc_);
     pole2_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
 }
 
 void MainWindow::on_PBBC_clicked()
@@ -123,7 +141,12 @@ void MainWindow::on_PBBC_clicked()
         disc_->moveBy(step_, dy_);
 
     pole3_.append(disc_);
-    pole2_.pop_back();}
+    pole2_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
+}
 
 void MainWindow::on_PBCA_clicked()
 // Moving disc from pole 3 to pole 1
@@ -139,6 +162,10 @@ void MainWindow::on_PBCA_clicked()
 
     pole1_.append(disc_);
     pole3_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
 }
 
 void MainWindow::on_PBCB_clicked()
@@ -155,4 +182,19 @@ void MainWindow::on_PBCB_clicked()
 
     pole2_.append(disc_);
     pole3_.pop_back();
+
+    is_winner();
+    current_moves++;
+    ui->current_mov->display(current_moves);
 }
+
+void MainWindow::is_winner()
+{
+    if(pole2_numbers_ == win_numbers_)
+        status_ = true;
+    else if(pole3_numbers_ == win_numbers_)
+        status_ = true;
+    else
+        status_ = false;
+}
+

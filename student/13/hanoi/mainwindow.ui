@@ -30,7 +30,7 @@
    <widget class="QPushButton" name="PBAB">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>80</x>
       <y>180</y>
       <width>84</width>
       <height>28</height>
@@ -43,7 +43,7 @@
    <widget class="QPushButton" name="PBAC">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>80</x>
       <y>220</y>
       <width>84</width>
       <height>28</height>
@@ -56,7 +56,7 @@
    <widget class="QPushButton" name="PBBA">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>170</x>
       <y>180</y>
       <width>84</width>
       <height>28</height>
@@ -69,7 +69,7 @@
    <widget class="QPushButton" name="PBBC">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>170</x>
       <y>220</y>
       <width>84</width>
       <height>28</height>
@@ -82,7 +82,7 @@
    <widget class="QPushButton" name="PBCA">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>260</x>
       <y>180</y>
       <width>84</width>
       <height>28</height>
@@ -95,7 +95,7 @@
    <widget class="QPushButton" name="PBCB">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>260</x>
       <y>220</y>
       <width>84</width>
       <height>28</height>
@@ -103,6 +103,61 @@
     </property>
     <property name="text">
      <string>C -&gt; B</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>180</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Minimum amount 
+ of moves</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="min_moves">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>220</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(0,0,0)</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="current_mov">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>220</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(100, 100, 100)
+</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>180</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current amount 
+ of moves</string>
     </property>
    </widget>
   </widget>
