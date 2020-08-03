@@ -56,12 +56,12 @@ private:
     int min_moves = 0;
     int current_moves = 0;
 
-    bool status_ = false;
+    bool win_ = false;
 
     QGraphicsRectItem* disc_;
 
     QTimer timer_;          // For continuous moving
-    int disc_amount_ = 7;   // For setting amount of discs
+    int disc_amount_ = 3;   // For setting amount of discs
 
     const int center_ = 340;
     const int step_ = 170;

@@ -68,9 +68,7 @@ void MainWindow::on_PBAB_clicked()
 
     disc_ = pole1_.back();
 
-
-        dy_ = ((pole1_.size() - pole2_.size()) * 22) - 22;
-
+    dy_ = ((pole1_.size() - pole2_.size()) * 22) - 22;
 
     if(pole1_.size() == pole2_.size())
         disc_->moveBy(step_, -22);
@@ -79,6 +77,9 @@ void MainWindow::on_PBAB_clicked()
 
     pole2_.append(disc_);
     pole1_.pop_back();
+
+    pole2_numbers_.push_back(pole1_numbers_.back());
+    pole1_numbers_.pop_back();
 
     is_winner();
     current_moves++;
@@ -90,9 +91,7 @@ void MainWindow::on_PBAC_clicked()
 {
     disc_ = pole1_.back();
 
-
-        dy_ = ((pole1_.size() - pole3_.size()) * 22) - 22;
-
+    dy_ = ((pole1_.size() - pole3_.size()) * 22) - 22;
 
     if(pole1_.size() == pole3_.size())
         disc_->moveBy(2 * step_, -22);
@@ -101,6 +100,9 @@ void MainWindow::on_PBAC_clicked()
 
     pole3_.append(disc_);
     pole1_.pop_back();
+
+    pole3_numbers_.push_back(pole1_numbers_.back());
+    pole1_numbers_.pop_back();
 
     is_winner();
     current_moves++;
@@ -112,7 +114,7 @@ void MainWindow::on_PBBA_clicked()
 {
     disc_ = pole2_.back();
 
-        dy_ = ((pole2_.size() - pole1_.size()) * 22) - 22;
+    dy_ = ((pole2_.size() - pole1_.size()) * 22) - 22;
 
     if(pole2_.size() == pole1_.size())
         disc_->moveBy(-step_, -22);
@@ -121,6 +123,9 @@ void MainWindow::on_PBBA_clicked()
 
     pole1_.append(disc_);
     pole2_.pop_back();
+
+    pole1_numbers_.push_back(pole2_numbers_.back());
+    pole2_numbers_.pop_back();
 
     is_winner();
     current_moves++;
@@ -132,8 +137,7 @@ void MainWindow::on_PBBC_clicked()
 {
     disc_ = pole2_.back();
 
-        dy_ = ((pole2_.size() - pole3_.size()) * 22) - 22;
-
+    dy_ = ((pole2_.size() - pole3_.size()) * 22) - 22;
 
     if(pole2_.size() == pole3_.size())
         disc_->moveBy(step_, -22);
@@ -142,6 +146,9 @@ void MainWindow::on_PBBC_clicked()
 
     pole3_.append(disc_);
     pole2_.pop_back();
+
+    pole3_numbers_.push_back(pole2_numbers_.back());
+    pole2_numbers_.pop_back();
 
     is_winner();
     current_moves++;
@@ -153,7 +160,7 @@ void MainWindow::on_PBCA_clicked()
 {
     disc_ = pole3_.back();
 
-        dy_ = ((pole3_.size() - pole1_.size()) * 22) - 22;
+    dy_ = ((pole3_.size() - pole1_.size()) * 22) - 22;
 
     if(pole3_.size() == pole1_.size())
         disc_->moveBy(-2 * step_, -22);
@@ -162,6 +169,9 @@ void MainWindow::on_PBCA_clicked()
 
     pole1_.append(disc_);
     pole3_.pop_back();
+
+    pole1_numbers_.push_back(pole3_numbers_.back());
+    pole3_numbers_.pop_back();
 
     is_winner();
     current_moves++;
@@ -183,6 +193,9 @@ void MainWindow::on_PBCB_clicked()
     pole2_.append(disc_);
     pole3_.pop_back();
 
+    pole2_numbers_.push_back(pole3_numbers_.back());
+    pole3_numbers_.pop_back();
+
     is_winner();
     current_moves++;
     ui->current_mov->display(current_moves);
@@ -191,10 +204,19 @@ void MainWindow::on_PBCB_clicked()
 void MainWindow::is_winner()
 {
     if(pole2_numbers_ == win_numbers_)
-        status_ = true;
+    {
+        win_ = true;
+        ui->WinnerLabel->setText("You have won \n the game.");
+    }
     else if(pole3_numbers_ == win_numbers_)
-        status_ = true;
+    {
+        win_ = true;
+        ui->WinnerLabel->setText("You have won \n the game.");
+    }
     else
-        status_ = false;
+    {
+        win_ = false;
+        ui->WinnerLabel->setText("Game is\n not complete");
+    }
 }
 
