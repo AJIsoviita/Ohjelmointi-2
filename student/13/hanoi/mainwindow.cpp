@@ -41,8 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     int h = 20;
     while(amount_of_discs < disc_amount_)
     {
-        QBrush disc_color(Qt::yellow);
-        QGraphicsRectItem* disc = scene_->addRect(QRect(x, y ,s ,h), border, disc_color);
+        QGraphicsRectItem* disc = scene_->addRect(QRect(x, y ,s ,h), border, disc_color_);
         pole1_.append(disc);
         pole1_numbers_.push_back(amount_of_discs);
         amount_of_discs++;
@@ -50,11 +49,15 @@ MainWindow::MainWindow(QWidget *parent) :
         y -= 22;
         s -= 10;
     }
-
+    // Counting minimum amount of moves
     win_numbers_ = pole1_numbers_;
     min_moves = pow(2, disc_amount_) - 1;
     ui->min_moves->display(min_moves);
     ui->current_mov->display(current_moves);
+
+    // Connecting timer to method
+    timer_ = new QTimer();
+    connect(timer_, &QTimer::timeout, this, &MainWindow::show_time);
 }
 
 MainWindow::~MainWindow()
@@ -75,6 +78,8 @@ void MainWindow::on_PBAB_clicked()
     else
         disc_->moveBy(step_, dy_);
 
+    disc_->setBrush(Qt::cyan);
+
     pole2_.append(disc_);
     pole1_.pop_back();
 
@@ -84,6 +89,9 @@ void MainWindow::on_PBAB_clicked()
     is_winner();
     current_moves++;
     ui->current_mov->display(current_moves);
+
+    if(!(timer_->isActive()))
+        timer_->start(1000);
 }
 
 void MainWindow::on_PBAC_clicked()
@@ -98,6 +106,8 @@ void MainWindow::on_PBAC_clicked()
     else
         disc_->moveBy(2 * step_, dy_);
 
+    disc_->setBrush(Qt::blue);
+
     pole3_.append(disc_);
     pole1_.pop_back();
 
@@ -107,6 +117,10 @@ void MainWindow::on_PBAC_clicked()
     is_winner();
     current_moves++;
     ui->current_mov->display(current_moves);
+
+    if(!(timer_->isActive()))
+        timer_->start(1000);
+
 }
 
 void MainWindow::on_PBBA_clicked()
@@ -120,6 +134,8 @@ void MainWindow::on_PBBA_clicked()
         disc_->moveBy(-step_, -22);
     else
         disc_->moveBy(-step_, dy_);
+
+    disc_->setBrush(Qt::yellow);
 
     pole1_.append(disc_);
     pole2_.pop_back();
@@ -144,6 +160,8 @@ void MainWindow::on_PBBC_clicked()
     else
         disc_->moveBy(step_, dy_);
 
+    disc_->setBrush(Qt::blue);
+
     pole3_.append(disc_);
     pole2_.pop_back();
 
@@ -166,6 +184,8 @@ void MainWindow::on_PBCA_clicked()
         disc_->moveBy(-2 * step_, -22);
     else
         disc_->moveBy(-2 * step_, dy_);
+
+    disc_->setBrush(Qt::yellow);
 
     pole1_.append(disc_);
     pole3_.pop_back();
@@ -190,6 +210,8 @@ void MainWindow::on_PBCB_clicked()
     else
         disc_->moveBy(-step_, dy_);
 
+    disc_->setBrush(Qt::cyan);
+
     pole2_.append(disc_);
     pole3_.pop_back();
 
@@ -202,21 +224,38 @@ void MainWindow::on_PBCB_clicked()
 }
 
 void MainWindow::is_winner()
+// To check if player has won
 {
     if(pole2_numbers_ == win_numbers_)
     {
         win_ = true;
         ui->WinnerLabel->setText("You have won \n the game.");
+        timer_ -> stop();
     }
     else if(pole3_numbers_ == win_numbers_)
     {
         win_ = true;
         ui->WinnerLabel->setText("You have won \n the game.");
+        timer_ -> stop();
     }
     else
     {
         win_ = false;
         ui->WinnerLabel->setText("Game is\n not complete");
     }
+}
+
+void MainWindow::show_time()
+// Updating clock
+{
+    seconds_++;
+    if(seconds_ == 60)
+    {
+        seconds_ = 0;
+        minutes_++;
+    }
+
+    ui->Seconds->display(seconds_);
+    ui->Minutes->display(minutes_);
 }
 

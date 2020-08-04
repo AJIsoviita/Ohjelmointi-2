@@ -40,6 +40,8 @@ private slots:
 
     void is_winner();
 
+    void show_time();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene_;
@@ -60,8 +62,12 @@ private:
 
     QGraphicsRectItem* disc_;
 
-    QTimer timer_;          // For continuous moving
+    QTimer* timer_;
+    int seconds_ = 0;
+    int minutes_ = 0;
+
     int disc_amount_ = 3;   // For setting amount of discs
+    QBrush disc_color_ = (Qt::yellow);
 
     const int center_ = 340;
     const int step_ = 170;
