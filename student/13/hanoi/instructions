@@ -10,7 +10,7 @@ Hanoin Torni
 
 * Levyjen määrää voidaan pienentää tai kasvattaa säätämällä
   mainwindow.hh tiedoston muuttujan disc_amount_ arvoa. Arvon pitää kuitenkin olla
-  yhtäsuuri tai suurempi kuin yksi.
+  välillä 0 < arvo < 12.
 
 * Pelin siirrot suoritetaan painonappien avulla, joissa lukee mistä tangosta
   mihin tankoon levy siirtyy. Tangot ovat järjestyksessä A, B, C. Levyjen väri
@@ -26,3 +26,9 @@ Hanoin Torni
   napit katoavat.
 
 * Pelin voi sulkea sulkemalla ikkunan tai painamalla QUIT-painiketta.
+
+* Ohjelmasta löytyvät lisäominaisuudet:
+  - Levyjen värin vaihtuminen tolppien välillä.
+  - Peliin kulunut aika näkyy pelaajalle pelin aikana jatkuvasti.
+  - Peli laskee siirtojen lukumäärän, sekä kertoo ratkaisuun vaadittavan
+    siirtomäärän.
