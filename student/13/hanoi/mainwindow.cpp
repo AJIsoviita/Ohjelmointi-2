@@ -4,7 +4,7 @@
  * antti-jussi.isoviita@tuni.fi 283435
  *
  * Description;
- * Program is a game of Tower of hanoi. Player can move discs between poles
+ * Program is a game of Towers of Hanoi. Player can move discs between poles
  * using pushbuttons. Game measures time and made moves and shows them during game.
  * Game calculates amount of minimum moves using 2^number of discs -1 formula.
  * Game informs player of the state of the game and if player has won, all the
@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Adding discs to graphic scene
     int amount_of_discs = 0; // Counting amount of discs
 
+    QBrush disc_color_ = (Qt::yellow);
     QPen border (Qt::black);
     border.setWidth(1);
 
@@ -84,7 +85,6 @@ void MainWindow::on_PBAB_clicked()
     disc_ = pole1_.back();
     reveal();
 
-
     dy_ = ((pole1_.size() - pole2_.size()) * 22) - 22;
 
     if(pole1_.size() == pole2_.size())
@@ -100,10 +100,14 @@ void MainWindow::on_PBAB_clicked()
     pole2_numbers_.push_back(pole1_numbers_.back());
     pole1_numbers_.pop_back();
 
-
     current_moves++;
     ui->current_mov->display(current_moves);
 
+    if(disc_amount_ == 1)
+    {
+        is_winner();
+        return;
+    }
     if(!(timer_->isActive()))
         timer_->start(1000);
 
@@ -132,12 +136,18 @@ void MainWindow::on_PBAC_clicked()
     pole3_numbers_.push_back(pole1_numbers_.back());
     pole1_numbers_.pop_back();
 
-
     current_moves++;
     ui->current_mov->display(current_moves);
 
+    if(disc_amount_ == 1)
+        {
+            is_winner();
+            return;
+        }
+
     if(!(timer_->isActive()))
         timer_->start(1000);
+
     hide();
     is_winner();
 }
@@ -163,9 +173,9 @@ void MainWindow::on_PBBA_clicked()
     pole1_numbers_.push_back(pole2_numbers_.back());
     pole2_numbers_.pop_back();
 
-
     current_moves++;
     ui->current_mov->display(current_moves);
+
     hide();
     is_winner();
 }
@@ -191,9 +201,9 @@ void MainWindow::on_PBBC_clicked()
     pole3_numbers_.push_back(pole2_numbers_.back());
     pole2_numbers_.pop_back();
 
-
     current_moves++;
     ui->current_mov->display(current_moves);
+
     hide();
     is_winner();
 }
@@ -220,9 +230,9 @@ void MainWindow::on_PBCA_clicked()
     pole1_numbers_.push_back(pole3_numbers_.back());
     pole3_numbers_.pop_back();
 
-
     current_moves++;
     ui->current_mov->display(current_moves);
+
     hide();
     is_winner();
 }
@@ -232,7 +242,6 @@ void MainWindow::on_PBCB_clicked()
 {
     disc_ = pole3_.back();
     reveal();
-
 
     dy_ = ((pole3_.size() - pole2_.size()) * 22) - 22;
 
@@ -251,6 +260,7 @@ void MainWindow::on_PBCB_clicked()
 
     current_moves++;
     ui->current_mov->display(current_moves);
+
     hide();
     is_winner();
 }
@@ -270,6 +280,7 @@ void MainWindow::is_winner()
         ui->PBCA->hide();
         ui->PBCB->hide();
     }
+
     else if(pole3_numbers_ == win_numbers_)
     {
         win_ = true;
@@ -282,6 +293,7 @@ void MainWindow::is_winner()
         ui->PBCA->hide();
         ui->PBCB->hide();
     }
+
     else
     {
         win_ = false;
@@ -304,7 +316,7 @@ void MainWindow::show_time()
 }
 
 void MainWindow::hide()
-// Hides unplayable buttons
+// Hides buttons which make unviable moves
 {
     if(pole2_numbers_.empty() and pole3_numbers_.empty())
     {
@@ -313,6 +325,7 @@ void MainWindow::hide()
         ui->PBCA->hide();
         ui->PBCB->hide();
     }
+
     else if(pole1_numbers_.empty())
     {
         ui->PBAB->hide();
@@ -321,36 +334,54 @@ void MainWindow::hide()
             ui->PBBC->hide();
         if(pole3_numbers_.back() < pole2_numbers_.back())
             ui->PBCB->hide();
-
     }
+
     else if(pole2_numbers_.empty())
     {
         ui->PBBA->hide();
         ui->PBBC->hide();
         if(pole1_numbers_.back() < pole3_numbers_.back())
             ui->PBAC->hide();
+        if(pole3_numbers_.back() < pole1_numbers_.back())
+            ui->PBCA->hide();
     }
+
     else if(pole3_numbers_.empty())
     {
         ui->PBCA->hide();
         ui->PBCB->hide();
         if(pole1_numbers_.back() < pole2_numbers_.back())
                 ui->PBAB->hide();
+        if(pole2_numbers_.back() < pole1_numbers_.back())
+            ui->PBBA->hide();
     }
 
-    else if(pole1_numbers_.back() < pole2_numbers_.back()) // A > B
+    else if(pole1_numbers_.back() < pole2_numbers_.back())
     {
         ui->PBAB->hide();
-        if(pole1_numbers_.back() < pole3_numbers_.back()) // A > C
+        if(pole1_numbers_.back() < pole3_numbers_.back())
         {
             ui->PBAC->hide();
-            if(pole3_numbers_.back() < pole2_numbers_.back()) // C > B
+            if(pole3_numbers_.back() < pole2_numbers_.back())
+            {
                 ui->PBCB->hide();
+                if(pole2_numbers_.back() < pole3_numbers_.back())
+                    ui->PBBC->hide();
+            }
+            if(pole2_numbers_.back() < pole3_numbers_.back())
+                ui->PBBC->hide();
         }
-        if(pole3_numbers_.back() < pole2_numbers_.back()) // C > B
+        if(pole3_numbers_.back() < pole2_numbers_.back())
+        {
             ui->PBCB->hide();
+            if(pole2_numbers_.back() < pole3_numbers_.back())
+                ui->PBBC->hide();
+            if(pole3_numbers_.back() < pole1_numbers_.back())
+                ui->PBCA->hide();
+        }
     }
-    else if(pole1_numbers_.back() < pole3_numbers_.back()) // A > C
+
+    else if(pole1_numbers_.back() < pole3_numbers_.back())
     {
         ui->PBAC->hide();
         if(pole1_numbers_.back() < pole2_numbers_.back())
@@ -359,10 +390,13 @@ void MainWindow::hide()
             if(pole2_numbers_.back() < pole3_numbers_.back())
                 ui->PBBC->hide();
         }
+        if(pole2_numbers_.back() < pole1_numbers_.back())
+            ui->PBBA->hide();
         if(pole2_numbers_.back() < pole3_numbers_.back())
             ui->PBBC->hide();
     }
-    else if(pole2_numbers_.back() < pole1_numbers_.back()) // B > A
+
+    else if(pole2_numbers_.back() < pole1_numbers_.back())
     {
         ui->PBBA->hide();
         if(pole2_numbers_.back() < pole3_numbers_.back())
@@ -373,8 +407,11 @@ void MainWindow::hide()
         }
         if(pole3_numbers_.back() < pole1_numbers_.back())
             ui->PBCA->hide();
+        if(pole3_numbers_.back() < pole2_numbers_.back())
+            ui->PBCB->hide();
     }
-    else if(pole2_numbers_.back() < pole3_numbers_.back()) // B > C
+
+    else if(pole2_numbers_.back() < pole3_numbers_.back())
     {
         ui->PBBC->hide();
         if(pole2_numbers_.back() < pole1_numbers_.back())
@@ -386,7 +423,8 @@ void MainWindow::hide()
         if(pole1_numbers_.back() < pole3_numbers_.back())
             ui->PBAC->hide();
     }
-    else if(pole3_numbers_.back() < pole1_numbers_.back()) // C > A
+
+    else if(pole3_numbers_.back() < pole1_numbers_.back())
     {
         ui->PBCA->hide();
         if(pole3_numbers_.back() < pole2_numbers_.back())
@@ -398,7 +436,8 @@ void MainWindow::hide()
         if(pole2_numbers_.end() < pole1_numbers_.end())
             ui->PBBA->hide();
     }
-    else if(pole3_numbers_.back() < pole2_numbers_.back()) // C > B
+
+    else if(pole3_numbers_.back() < pole2_numbers_.back())
     {
         ui->PBCB->hide();
         if(pole3_numbers_.back() < pole1_numbers_.back())

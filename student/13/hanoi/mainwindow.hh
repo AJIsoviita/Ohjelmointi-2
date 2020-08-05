@@ -4,7 +4,7 @@
  * antti-jussi.isoviita@tuni.fi 283435
  *
  * Description;
- * Program is a game of Tower of hanoi. Player can move discs between poles
+ * Program is a game of Towers of Hanoi. Player can move discs between poles
  * using pushbuttons. Game measures time and made moves and shows them during game.
  * Game calculates amount of minimum moves using 2^number of discs -1 formula.
  * Game informs player of the state of the game and if player has won, all the
@@ -89,16 +89,19 @@ private:
     int seconds_ = 0;
     int minutes_ = 0;
 
-    int disc_amount_ = 3;   // For setting amount of discs
-    QBrush disc_color_ = (Qt::yellow);
+    // For setting amount of discs
+    int disc_amount_ = 7;
 
+    // Values, that are used in many functions
     const int center_ = 340;
     const int step_ = 170;
     const int bottom_ = 250;
     const int pole_height = 132;
 
-    int dy_ = 0; // For calculating the height of the movement on y-axis
+    // For calculating the height of the movement on y-axis
+    int dy_ = 0;
 
+    // For setting scene
     const int BORDER_UP = 0;
     const int BORDER_DOWN = 260;
     const int BORDER_LEFT = 0;

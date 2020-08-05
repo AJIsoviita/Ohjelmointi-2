@@ -1,0 +1,28 @@
+Hanoin Torni
+
+* Pelin tarkoitus on siirtää levypino ensimmäisestä tangosta toiseen tai
+  kolmanteen tankoon samaan järjestykseen. Levyjen siirtelyyn on kaksi sääntöä:
+  - Isompaa levyä ei voi siirtää pienemmän levyn päälle
+  - Vain yhtä levyä voi siirtää kerrallaan
+
+* Ohjelma estää käyttäjää tekemästä laittomia siirtoja peittämällä
+  siirtopainikkeet, jotka aiheuttaisivat laittoman siirron.
+
+* Levyjen määrää voidaan pienentää tai kasvattaa säätämällä
+  mainwindow.hh tiedoston muuttujan disc_amount_ arvoa. Arvon pitää kuitenkin olla
+  yhtäsuuri tai suurempi kuin yksi.
+
+* Pelin siirrot suoritetaan painonappien avulla, joissa lukee mistä tangosta
+  mihin tankoon levy siirtyy. Tangot ovat järjestyksessä A, B, C. Levyjen väri
+  vaihtuu, kun levy vaihtaa tankoa. Levy, joka on tangossa A on keltainen,
+  B on turkoosi, C on sininen.
+
+* Pelin aikana käyttäjälle ilmoitetaan peliin kulunut aika, tehtyjen siirtojen määrä,
+  vähimmäismäärä siirtoja pelin voittamiseksi, sekä pelin tila. Vähimmäismäärä lasketaan
+  kaavalla 2^n-1 (n = levyjen määrä). Pelin tila on kesken / voitettu.
+
+* Peli päättyy, kun levyt ovat siirretty oikeaan järjestykseen toiseen tolppaan.
+  Pelin päättyessä, kello pysähtyy, sekä pelin tila muuttuu voitetuksi ja paino-
+  napit katoavat.
+
+* Pelin voi sulkea sulkemalla ikkunan tai painamalla QUIT-painiketta.
